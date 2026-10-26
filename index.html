@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-START-->
+<title>Ya Zol: Which One Are You?</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A 3-minute scenario game for Sudanese students at BAU. Find your team: Editing, Shooting, Organizing, Finance & Sponsors, or Flags.">
+<meta property="og:title" content="Ya Zol: Which one are you?">
+<meta property="og:description" content="15 quick scenarios. Find your team for this year's Sudanese events at BAU.">
+<meta name="theme-color" content="#0E0E0C">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='22' fill='%23D21034'/%3E%3Crect y='21' width='64' height='22' fill='%23fff'/%3E%3Crect y='42' width='64' height='22' fill='%23111'/%3E%3Cpath d='M0 0L30 32L0 64Z' fill='%23007229'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&family=Reem+Kufi:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
+<style>
+/* Layout idea: a Nubian painted wall — lime-white ground, flag-coloured
+   zigzag friezes, the green hoist triangle as the page's anchor, and one
+   question at a time set large like a poster. Single committed light look. */
+:root {
+  color-scheme: light;
+  --wall: #F7F5F0;      /* lime-washed wall */
+  --ink: #0E0E0C;       /* flag black */
+  --red: #D21034;       /* flag red */
+  --green: #007229;     /* flag green */
+  --ochre: #E9A93A;     /* Nubian ochre, used for highlights only */
+  --muted: #5C5A53;
+  --line: rgba(14, 14, 12, .14);
+  --card: #FFFFFF;
+
+  --f-display: "Syne", "Arial Black", system-ui, sans-serif;
+  --f-body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --f-ar-display: "Reem Kufi", "Geeza Pro", "Segoe UI", Tahoma, sans-serif;
+  --f-ar-body: "IBM Plex Sans Arabic", "Geeza Pro", "Segoe UI", Tahoma, sans-serif;
+
+  --s-1: .8rem; --s0: 1rem; --s1: 1.2rem; --s2: clamp(1.45rem, 1.2rem + 1.2vw, 2rem);
+  --s3: clamp(1.9rem, 1.3rem + 2.8vw, 3.2rem); --s4: clamp(2.6rem, 1.4rem + 6vw, 5.6rem);
+  --ease: cubic-bezier(.2, .75, .2, 1);
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { min-height: 100%; }
+body {
+  margin: 0; background: var(--wall); color: var(--ink);
+  font: 400 var(--s0)/1.55 var(--f-body); -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+html[lang="ar"] body { font-family: var(--f-ar-body); line-height: 1.75; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--ochre); outline-offset: 3px; }
+
+/* Nubian zigzag frieze in flag colours */
+.frieze { height: 14px; background:
+  conic-gradient(from 135deg at 50% 0, var(--red) 90deg, transparent 0) 0 0 / 14px 7px repeat-x,
+  conic-gradient(from -45deg at 50% 100%, var(--ink) 90deg, transparent 0) 0 7px / 14px 7px repeat-x;
+}
+.frieze--green { background:
+  conic-gradient(from 135deg at 50% 0, var(--green) 90deg, transparent 0) 0 0 / 14px 7px repeat-x,
+  conic-gradient(from -45deg at 50% 100%, var(--ink) 90deg, transparent 0) 0 7px / 14px 7px repeat-x; }
+
+.shell { min-height: 100%; display: grid; grid-template-rows: auto auto 1fr auto; }
+
+/* top bar */
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding-block: 14px; padding-left: var(--gutter-l); padding-right: var(--gutter-r);
+  max-width: 1100px; width: 100%; margin-inline: auto; }
+.mark { display: flex; align-items: center; gap: 10px; font: 600 var(--s-1)/1.2 var(--f-body); letter-spacing: .08em; text-transform: uppercase; min-width: 0; }
+html[lang="ar"] .mark { letter-spacing: 0; text-transform: none; font-family: var(--f-ar-body); }
+.flag { width: 30px; height: 20px; flex: none; position: relative; overflow: hidden; border-radius: 2px;
+  background: linear-gradient(var(--red) 0 33.4%, #fff 0 66.6%, var(--ink) 0); box-shadow: 0 0 0 1px var(--line); }
+.flag::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 46%; background: var(--green); clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.lang { display: inline-flex; border: 1.5px solid var(--ink); border-radius: 999px; padding: 3px; direction: ltr; flex: none; }
+.lang button { border: 0; background: transparent; padding: 6px 12px; border-radius: 999px; cursor: pointer; font: 600 .78rem/1 var(--f-body); letter-spacing: .06em; min-height: 32px; }
+.lang button[lang="ar"] { font-family: var(--f-ar-body); letter-spacing: 0; font-size: .9rem; }
+.lang button[aria-pressed="true"] { background: var(--ink); color: var(--wall); }
+
+.main { width: 100%; max-width: 1100px; margin-inline: auto; padding-left: var(--gutter-l); padding-right: var(--gutter-r); padding-block: clamp(20px, 4vw, 48px) 56px; }
+
+/* ---------- intro ---------- */
+.intro { display: grid; gap: clamp(28px, 5vw, 56px); align-items: center; }
+.intro__copy { display: grid; gap: 22px; min-width: 0; }
+.eyebrow { font: 600 var(--s-1)/1.3 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--green); }
+html[lang="ar"] .eyebrow { letter-spacing: 0; text-transform: none; font-family: var(--f-ar-body); font-size: .95rem; }
+.intro h1 { font: 800 var(--s4)/.92 var(--f-display); letter-spacing: -.035em; }
+.intro h1 .zol { color: var(--red); display: block; }
+html[lang="ar"] .intro h1 { font-family: var(--f-ar-display); font-weight: 700; letter-spacing: 0; line-height: 1.2; }
+.intro__lede { font-size: var(--s1); color: var(--muted); max-width: 40ch; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: .9rem; color: var(--muted); }
+.facts span { display: inline-flex; align-items: center; gap: 8px; }
+.facts span::before { content: ""; width: 7px; height: 7px; background: var(--red); transform: rotate(45deg); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 0 28px;
+  border-radius: 999px; border: 2px solid var(--ink); background: var(--ink); color: var(--wall); cursor: pointer;
+  font: 600 var(--s0)/1 var(--f-body); text-decoration: none; transition: transform .25s var(--ease), background-color .25s, color .25s; }
+html[lang="ar"] .btn { font-family: var(--f-ar-body); }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn--red { background: var(--red); border-color: var(--red); color: #fff; }
+.btn--ghost { background: transparent; color: var(--ink); }
+.btn--ghost:hover { background: var(--ink); color: var(--wall); }
+.btn[disabled] { opacity: .35; cursor: not-allowed; transform: none; }
+.arrow { display: inline-block; transition: transform .25s var(--ease); }
+html[dir="rtl"] .arrow { transform: scaleX(-1); }
+.btn:hover .arrow { transform: translateX(4px); }
+html[dir="rtl"] .btn:hover .arrow { transform: scaleX(-1) translateX(4px); }
+
+/* the five roles as a painted door */
+.door { position: relative; background: var(--ink); color: var(--wall); border-radius: 160px 160px 18px 18px; padding: 70px 22px 22px; overflow: hidden; max-width: 460px; width: 100%; justify-self: center; }
+.door::before { content: ""; position: absolute; inset: 0 0 auto; height: 22px; background:
+  conic-gradient(from 135deg at 50% 0, var(--green) 90deg, transparent 0) 0 0 / 22px 11px repeat-x,
+  conic-gradient(from -45deg at 50% 100%, var(--red) 90deg, transparent 0) 0 11px / 22px 11px repeat-x; top: 38px; }
+.door__label { position: absolute; top: 12px; inset-inline: 0; text-align: center; font: 600 .72rem/1 var(--f-body); letter-spacing: .2em; text-transform: uppercase; color: var(--ochre); }
+html[lang="ar"] .door__label { font-family: var(--f-ar-body); letter-spacing: 0; font-size: .85rem; }
+.roles { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.role-row { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: center; padding: 12px 14px; border-radius: 14px; background: rgba(247, 245, 240, .06); }
+.role-row svg { width: 44px; height: 44px; }
+.role-row b { display: block; font: 700 1.05rem/1.2 var(--f-display); }
+html[lang="ar"] .role-row b { font-family: var(--f-ar-display); font-weight: 500; font-size: 1.15rem; }
+.role-row small { color: rgba(247, 245, 240, .66); font-size: .82rem; line-height: 1.35; display: block; }
+@media (min-width: 860px) { .intro { grid-template-columns: 1.15fr .85fr; } }
+
+/* icons */
+.ico { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ico .fill { fill: currentColor; stroke: none; }
+.c-edit { color: var(--ochre); } .c-shoot { color: #fff; } .c-org { color: #4FC57A; } .c-fin { color: var(--ochre); } .c-flag { color: #FF5A74; }
+
+/* ---------- quiz ---------- */
+.quiz { display: grid; gap: 26px; max-width: 760px; margin-inline: auto; }
+.progress { display: grid; gap: 10px; }
+.progress__top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: .88rem; color: var(--muted); }
+.progress__n { font: 700 1rem/1 var(--f-display); color: var(--ink); font-variant-numeric: tabular-nums; }
+.track { height: 10px; background: var(--line); border-radius: 2px; overflow: hidden; position: relative; }
+.track__fill { position: absolute; inset: 0 auto 0 0; width: 0; transition: width .5s var(--ease); background:
+  conic-gradient(from 135deg at 50% 0, var(--red) 90deg, transparent 0) 0 0 / 10px 5px repeat-x,
+  conic-gradient(from -45deg at 50% 100%, var(--green) 90deg, transparent 0) 0 5px / 10px 5px repeat-x, var(--ink); }
+html[dir="rtl"] .track__fill { inset: 0 0 0 auto; }
+
+.q { display: grid; gap: 22px; }
+.q__tag { display: inline-flex; align-self: start; justify-self: start; gap: 8px; align-items: center; background: var(--ochre); color: var(--ink); font: 600 .75rem/1 var(--f-body); letter-spacing: .1em; text-transform: uppercase; padding: 7px 10px; border-radius: 4px; }
+html[lang="ar"] .q__tag { font-family: var(--f-ar-body); letter-spacing: 0; text-transform: none; font-size: .85rem; }
+.q h2 { font: 700 var(--s3)/1.08 var(--f-display); letter-spacing: -.02em; }
+html[lang="ar"] .q h2 { font-family: var(--f-ar-display); font-weight: 500; letter-spacing: 0; line-height: 1.45; }
+.q__hint { color: var(--muted); }
+.opts { display: grid; gap: 10px; }
+.opt { display: grid; grid-template-columns: 34px 1fr; gap: 14px; align-items: center; text-align: start; width: 100%;
+  background: var(--card); border: 1.5px solid var(--line); border-radius: 16px; padding: 15px 16px; cursor: pointer; min-height: 62px;
+  transition: border-color .2s, transform .2s var(--ease), background-color .2s, box-shadow .2s; font-size: 1.02rem; line-height: 1.4; }
+.opt:hover { border-color: var(--ink); transform: translateY(-1px); box-shadow: 0 8px 20px -14px rgba(14, 14, 12, .5); }
+.opt__k { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; border: 1.5px solid var(--line); font: 700 .85rem/1 var(--f-display); transition: background-color .2s, color .2s, border-color .2s; }
+.opt[aria-checked="true"] { border-color: var(--ink); background: var(--ink); color: var(--wall); }
+.opt[aria-checked="true"] .opt__k { background: var(--red); border-color: var(--red); color: #fff; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { border: 1.5px solid var(--line); background: var(--card); border-radius: 999px; padding: 10px 16px; cursor: pointer; min-height: 44px; transition: background-color .2s, color .2s, border-color .2s; }
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: #fff; }
+.subq { display: grid; gap: 12px; }
+.subq h3 { font: 600 var(--s1)/1.3 var(--f-body); }
+html[lang="ar"] .subq h3 { font-family: var(--f-ar-body); }
+.nav-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.link { background: none; border: 0; cursor: pointer; padding: 10px 0; color: var(--muted); text-decoration: underline; text-underline-offset: 4px; }
+.link:hover { color: var(--ink); }
+
+/* step transition */
+@keyframes stepIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: no-preference) { .anim { animation: stepIn .45s var(--ease) both; } }
+
+/* ---------- details ---------- */
+.form { display: grid; gap: 18px; max-width: 640px; margin-inline: auto; }
+.form h2 { font: 700 var(--s3)/1.08 var(--f-display); letter-spacing: -.02em; }
+html[lang="ar"] .form h2 { font-family: var(--f-ar-display); font-weight: 500; letter-spacing: 0; line-height: 1.4; }
+.grid2 { display: grid; gap: 14px; }
+@media (min-width: 560px) { .grid2 { grid-template-columns: 1fr 1fr; } }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label, .field .label { font-weight: 600; font-size: .9rem; }
+.field input, .field select { width: 100%; min-height: 52px; border: 1.5px solid var(--line); background: var(--card); border-radius: 12px; padding: 0 14px; font: inherit; color: var(--ink); }
+.field input:focus, .field select:focus { border-color: var(--ink); outline: none; box-shadow: 0 0 0 3px rgba(233, 169, 58, .45); }
+.field input[aria-invalid="true"] { border-color: var(--red); }
+.err { color: var(--red); font-size: .85rem; min-height: 1.2em; }
+.consent { display: flex; gap: 10px; align-items: flex-start; font-size: .92rem; cursor: pointer; }
+.consent input { width: 20px; height: 20px; margin-top: 2px; flex: none; accent-color: var(--green); }
+.privacy { font-size: .85rem; color: var(--muted); border-inline-start: 3px solid var(--green); padding-inline-start: 12px; }
+
+/* ---------- result ---------- */
+.result { display: grid; gap: 28px; justify-items: center; }
+.card { width: min(100%, 440px); background: var(--ink); color: var(--wall); border-radius: 24px; overflow: hidden; position: relative; box-shadow: 0 40px 70px -40px rgba(14, 14, 12, .7); }
+.card__flag { height: 12px; background: linear-gradient(90deg, var(--red) 0 33.3%, #fff 0 66.6%, var(--ink) 0); position: relative; }
+.card__flag::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 18%; background: var(--green); clip-path: polygon(0 0, 100% 0, 0 100%); }
+html[dir="rtl"] .card__flag::before { inset: 0 0 0 auto; clip-path: polygon(0 0, 100% 0, 100% 100%); }
+.card__body { padding: 26px 24px 24px; display: grid; gap: 18px; }
+.card__top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+.card__who { font-size: .85rem; color: rgba(247, 245, 240, .7); }
+.card__who b { color: var(--wall); display: block; font-size: 1rem; }
+.card__icon { width: 64px; height: 64px; flex: none; }
+.card__eyebrow { font: 600 .72rem/1 var(--f-body); letter-spacing: .18em; text-transform: uppercase; color: var(--ochre); }
+html[lang="ar"] .card__eyebrow { letter-spacing: 0; font-family: var(--f-ar-body); font-size: .9rem; }
+.card h2 { font: 800 clamp(2.4rem, 1.6rem + 4vw, 3.4rem)/.95 var(--f-display); letter-spacing: -.03em; }
+html[lang="ar"] .card h2 { font-family: var(--f-ar-display); font-weight: 700; letter-spacing: 0; line-height: 1.25; }
+.card__desc { color: rgba(247, 245, 240, .82); }
+.bars { display: grid; gap: 9px; margin: 0; }
+.bar-row { display: grid; grid-template-columns: minmax(0, 8.5rem) 1fr 2.8rem; gap: 10px; align-items: center; font-size: .82rem; }
+.bar-row dt { color: rgba(247, 245, 240, .78); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar-row dd { margin: 0; text-align: end; font-variant-numeric: tabular-nums; font-weight: 600; }
+.bar-track { height: 8px; background: rgba(247, 245, 240, .12); border-radius: 2px; overflow: hidden; }
+.bar-fill { height: 100%; background: rgba(247, 245, 240, .55); width: 0; transition: width .9s var(--ease); }
+.bar-row.is-top .bar-fill { background: var(--red); }
+.bar-row.is-second .bar-fill { background: var(--ochre); }
+.card__second { border-top: 1px solid rgba(247, 245, 240, .14); padding-top: 14px; font-size: .9rem; color: rgba(247, 245, 240, .8); }
+.card__second b { color: var(--ochre); }
+.card .frieze { height: 12px; background:
+  conic-gradient(from 135deg at 50% 0, var(--green) 90deg, transparent 0) 0 0 / 12px 6px repeat-x,
+  conic-gradient(from -45deg at 50% 100%, var(--red) 90deg, transparent 0) 0 6px / 12px 6px repeat-x; }
+.status { text-align: center; max-width: 46ch; font-size: .95rem; display: flex; gap: 10px; align-items: center; justify-content: center; }
+.status::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--muted); flex: none; }
+.status[data-state="ok"]::before { background: var(--green); }
+.status[data-state="err"]::before { background: var(--red); }
+.status[data-state="busy"]::before { background: var(--ochre); animation: pulse 1s infinite; }
+@keyframes pulse { 50% { opacity: .3; } }
+.pickline { color: var(--muted); text-align: center; max-width: 46ch; }
+
+.foot { padding-block: 18px 22px; padding-left: var(--gutter-l); padding-right: var(--gutter-r); text-align: center; font-size: .8rem; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+</style>
+<!--HEAD-END-->
+</head>
+<body>
+<!--BODY-START-->
+<div class="shell">
+  <div class="frieze" aria-hidden="true"></div>
+  <header class="bar">
+    <div class="mark"><span class="flag" aria-hidden="true"></span><span data-t="brand">Sudanese Students · BAU</span></div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" lang="en">EN</button>
+      <button type="button" data-lang="ar" lang="ar">عربي</button>
+    </div>
+  </header>
+
+  <main class="main" id="app" aria-live="polite">
+    <!-- INTRO -->
+    <section class="intro" id="s-intro">
+      <div class="intro__copy">
+        <p class="eyebrow" data-t="intro.eyebrow">Team roles · 2026–27</p>
+        <h1><span data-t="intro.h1a">Ya zol,</span><span class="zol" data-t="intro.h1b">which one are you?</span></h1>
+        <p class="intro__lede" data-t="intro.lede">Fifteen quick situations from trips, events and campus life. Pick what you would really do. We use your answers to build this year's teams.</p>
+        <div class="facts"><span data-t="intro.f1">About 3 minutes</span><span data-t="intro.f2">No wrong answers</span><span data-t="intro.f3">One bonus question</span></div>
+        <div><button class="btn btn--red" id="start" type="button"><span data-t="intro.start">Start the game</span> <span class="arrow" aria-hidden="true">→</span></button></div>
+      </div>
+      <div class="door">
+        <span class="door__label" data-t="intro.door">The five teams</span>
+        <ul class="roles" id="role-list"></ul>
+      </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="quiz" id="s-quiz" hidden>
+      <div class="progress">
+        <div class="progress__top"><span class="progress__n" id="p-n">1 / 15</span><span id="p-label"></span></div>
+        <div class="track" aria-hidden="true"><div class="track__fill" id="p-fill"></div></div>
+      </div>
+      <div id="q-host"></div>
+      <div class="nav-row">
+        <button type="button" class="link" id="back" data-t="quiz.back">Back</button>
+        <button type="button" class="btn" id="next" disabled><span data-t="quiz.next">Next</span> <span class="arrow" aria-hidden="true">→</span></button>
+      </div>
+    </section>
+
+    <!-- DETAILS -->
+    <section id="s-details" hidden>
+      <form class="form" id="details" novalidate>
+        <p class="eyebrow" data-t="form.eyebrow">Last step</p>
+        <h2 data-t="form.h">Who are you? We'll save your role card.</h2>
+        <div class="grid2">
+          <div class="field"><label for="f-name" data-t="form.name">Name</label><input id="f-name" name="name" maxlength="60" autocomplete="given-name" required><span class="err" id="e-name"></span></div>
+          <div class="field"><label for="f-surname" data-t="form.surname">Surname</label><input id="f-surname" name="surname" maxlength="60" autocomplete="family-name" required><span class="err" id="e-surname"></span></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="f-sn" data-t="form.sn">Student number</label><input id="f-sn" name="sn" maxlength="12" inputmode="numeric" autocomplete="off" required dir="ltr"><span class="err" id="e-sn"></span></div>
+          <div class="field"><label for="f-year" data-t="form.year">Year</label>
+            <select id="f-year" name="year" required>
+              <option value="" data-t="form.choose">Choose…</option>
+              <option value="Prep" data-t="y.prep">Prep (Hazırlık)</option>
+              <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
+              <option value="5+">5+</option>
+              <option value="Masters/PhD" data-t="y.grad">Master's / PhD</option>
+            </select><span class="err" id="e-year"></span></div>
+        </div>
+        <div class="field"><span class="label" id="l-gender" data-t="form.gender">Gender</span>
+          <div class="chips" role="radiogroup" aria-labelledby="l-gender">
+            <button type="button" class="chip" id="g-male" data-gender="Male" role="radio" aria-checked="false" aria-pressed="false" data-t="form.male">Male</button>
+            <button type="button" class="chip" id="g-female" data-gender="Female" role="radio" aria-checked="false" aria-pressed="false" data-t="form.female">Female</button>
+          </div><span class="err" id="e-gender"></span></div>
+        <div class="field"><label for="f-major" data-t="form.major">Major</label><input id="f-major" name="major" maxlength="100" list="majors" required autocomplete="off"><span class="err" id="e-major"></span>
+          <datalist id="majors"></datalist></div>
+        <label class="consent"><input type="checkbox" id="f-consent"> <span data-t="form.consent">I agree that my answers and details are shared with the Sudanese student representative at BAU to form event teams.</span></label>
+        <span class="err" id="e-consent"></span>
+        <p class="privacy" data-t="form.privacy">Your answers go only to the Sudanese student representative at BAU and are used to form event teams.</p>
+        <div class="nav-row">
+          <button type="button" class="link" id="back2" data-t="quiz.back">Back</button>
+          <button type="submit" class="btn btn--red"><span data-t="form.submit">Show my role</span> <span class="arrow" aria-hidden="true">→</span></button>
+        </div>
+      </form>
+    </section>
+
+    <!-- RESULT -->
+    <section class="result" id="s-result" hidden>
+      <article class="card" id="card" aria-labelledby="r-role">
+        <div class="card__flag" aria-hidden="true"></div>
+        <div class="card__body">
+          <div class="card__top">
+            <div class="card__who"><span data-t="r.for">Role card for</span><b id="r-name"></b><span id="r-meta" dir="auto"></span></div>
+            <span class="card__icon" id="r-icon" aria-hidden="true"></span>
+          </div>
+          <p class="card__eyebrow" data-t="r.eyebrow">Your team</p>
+          <h2 id="r-role"></h2>
+          <p class="card__desc" id="r-desc"></p>
+          <dl class="bars" id="r-bars"></dl>
+          <p class="card__second" id="r-second"></p>
+        </div>
+        <div class="frieze" aria-hidden="true"></div>
+      </article>
+      <p class="pickline" id="r-pick" hidden></p>
+      <p class="status" id="r-status" data-state="busy"></p>
+      <button type="button" class="btn btn--ghost" id="again" data-t="r.again">Play again</button>
+    </section>
+  </main>
+
+  <footer class="foot" data-t="foot">Made for the Sudanese student community at Bahçeşehir University, Istanbul.</footer>
+</div>
+
+<script>
+/* =====================================================================
+   SETTINGS — paste your Google Apps Script web-app URL between the quotes.
+   (See README.md for the 5-minute setup.)
+   ===================================================================== */
+const SHEET_URL = "";
+
+/* ===================================================================== */
+(function () {
+  "use strict";
+
+  const ROLES = ["edit", "shoot", "org", "fin", "flag"];
+
+  const ICONS = {
+    edit: '<svg class="ico c-edit" viewBox="0 0 48 48"><rect x="5" y="10" width="38" height="24" rx="3"/><path d="M5 18h38M14 10v24M28 10v24"/><path d="M14 40h20"/><path class="fill" d="M19 21l7 4-7 4z"/></svg>',
+    shoot: '<svg class="ico c-shoot" viewBox="0 0 48 48"><path d="M6 16h8l3-5h14l3 5h8v22H6z"/><circle cx="24" cy="26" r="7"/><circle class="fill" cx="37" cy="20" r="1.6"/></svg>',
+    org: '<svg class="ico c-org" viewBox="0 0 48 48"><rect x="10" y="8" width="28" height="34" rx="3"/><path d="M18 8v-2h12v2"/><path d="M16 20l3 3 5-6M16 32l3 3 5-6M28 21h5M28 33h5"/></svg>',
+    fin: '<svg class="ico c-fin" viewBox="0 0 48 48"><ellipse cx="20" cy="14" rx="11" ry="4"/><path d="M9 14v8c0 2.2 4.9 4 11 4s11-1.8 11-4v-8"/><path d="M9 22v8c0 2.2 4.9 4 11 4"/><circle cx="33" cy="32" r="9"/><path d="M33 28v8M30 30.5h4.5a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3H36"/></svg>',
+    flag: '<svg class="ico c-flag" viewBox="0 0 48 48"><path d="M12 42V6"/><path d="M12 8h24l-5 8 5 8H12"/><path class="fill" d="M12 8l9 8-9 8z"/></svg>'
+  };
+
+  /* ---------------- text ---------------- */
+  const T = {
+    en: {
+      "brand": "Sudanese Students · BAU",
+      "intro.eyebrow": "Team roles · 2026–27",
+      "intro.h1a": "Ya zol,",
+      "intro.h1b": "which one are you?",
+      "intro.lede": "Fifteen quick situations from trips, events and campus life. Pick what you would really do. We use your answers to build this year's teams.",
+      "intro.f1": "About 3 minutes", "intro.f2": "No wrong answers", "intro.f3": "One bonus question",
+      "intro.start": "Start the game", "intro.door": "The five teams",
+      "quiz.back": "Back", "quiz.next": "Next", "quiz.finish": "Finish",
+      "quiz.left": "{n} to go", "quiz.last": "Last one",
+      "quiz.scenario": "Scenario", "quiz.bonus": "Bonus round", "quiz.about": "About you",
+      "quiz.multi": "Tap everything that fits. Skip if none.",
+      "form.eyebrow": "Last step", "form.h": "Who are you? We'll save your role card.",
+      "form.consent": "I agree that my answers and details are shared with the Sudanese student representative at BAU to form event teams.", "err.consent": "Please tick this box to continue.", "err.server": "Something went wrong saving. Screenshot your card and send it to the student rep.",
+      "form.gender": "Gender", "form.male": "Male", "form.female": "Female",
+      "form.name": "Name", "form.surname": "Surname", "form.sn": "Student number", "form.year": "Year", "form.major": "Major",
+      "form.choose": "Choose…", "y.prep": "Prep (Hazırlık)", "y.grad": "Master's / PhD",
+      "form.privacy": "Your answers go only to the Sudanese student representative at BAU and are used to form event teams.",
+      "form.submit": "Show my role",
+      "err.req": "Please fill this in.", "err.sn": "Use digits only (5–12 numbers).",
+      "r.for": "Role card for", "r.eyebrow": "Your team", "r.second": "Also strong in: {role}",
+      "r.again": "Play again",
+      "r.pickSame": "You said you'd pick {role}. Your answers agree.",
+      "r.pickDiff": "You said you'd pick {pick}. Your answers lean towards {role}. We'll look at both.",
+      "s.busy": "Saving your answers…",
+      "s.ok": "Saved. Screenshot your card and drop it in the group chat.",
+      "s.err": "Couldn't save right now. Screenshot this card and send it to the student rep.",
+      "s.preview": "Preview mode: answers aren't being saved yet.",
+      "foot": "Made for the Sudanese student community at Bahçeşehir University, Istanbul."
+    },
+    ar: {
+      "brand": "الطلاب السودانيين · جامعة BAU",
+      "intro.eyebrow": "أدوار الفريق · ٢٠٢٦–٢٧",
+      "intro.h1a": "يا زول،",
+      "intro.h1b": "إنت ياتو فيهم؟",
+      "intro.lede": "خمستاشر موقف سريع من الرحلات والفعاليات وحياة الجامعة. اختار الحاجة الفعلاً بتعملها. إجاباتك بتساعدنا نكوّن فرق السنة دي.",
+      "intro.f1": "حوالي ٣ دقايق", "intro.f2": "مافي إجابة غلط", "intro.f3": "سؤال إضافي واحد",
+      "intro.start": "يلا نبدأ", "intro.door": "الفرق الخمسة",
+      "quiz.back": "رجوع", "quiz.next": "التالي", "quiz.finish": "خلاص",
+      "quiz.left": "فاضل {n}", "quiz.last": "آخر واحد",
+      "quiz.scenario": "موقف", "quiz.bonus": "جولة إضافية", "quiz.about": "عنك إنت",
+      "quiz.multi": "اختار كل الحاجات البتنطبق عليك. لو مافي، تخطّى.",
+      "form.eyebrow": "آخر خطوة", "form.h": "إنت منو؟ عشان نحفظ بطاقة دورك.",
+      "form.consent": "أوافق إن إجاباتي وبياناتي تمشي لممثل الطلاب السودانيين في الجامعة عشان تكوين فرق الفعاليات.", "err.consent": "اختار المربع ده عشان تواصل.", "err.server": "حصلت مشكلة في الحفظ. خُد سكرين شوت للبطاقة ورسّلها لممثل الطلاب.",
+      "form.gender": "النوع", "form.male": "ذكر", "form.female": "أنثى",
+      "form.name": "الاسم", "form.surname": "اسم العائلة", "form.sn": "الرقم الجامعي", "form.year": "السنة", "form.major": "التخصص",
+      "form.choose": "اختار…", "y.prep": "السنة التحضيرية (Hazırlık)", "y.grad": "ماجستير / دكتوراه",
+      "form.privacy": "إجاباتك بتمشي بس لممثل الطلاب السودانيين في الجامعة، وبنستخدمها عشان نكوّن فرق الفعاليات.",
+      "form.submit": "وريني دوري",
+      "err.req": "املأ الخانة دي لو سمحت.", "err.sn": "أرقام بس (من ٥ لـ١٢ رقم).",
+      "r.for": "بطاقة دور", "r.eyebrow": "فريقك", "r.second": "وكمان قوي في: {role}",
+      "r.again": "العب تاني",
+      "r.pickSame": "قلت حتختار {role}، وإجاباتك بتأكد كده.",
+      "r.pickDiff": "قلت حتختار {pick}، بس إجاباتك أقرب لـ{role}. حنشوف الاتنين.",
+      "s.busy": "بنحفظ إجاباتك…",
+      "s.ok": "اتحفظت. خُد سكرين شوت للبطاقة ونزّلها في القروب.",
+      "s.err": "ما قدرنا نحفظ هسي. خُد سكرين شوت للبطاقة ورسّلها لممثل الطلاب.",
+      "s.preview": "وضع المعاينة: الإجابات لسه ما بتتحفظ.",
+      "foot": "اتعمل لمجتمع الطلاب السودانيين في جامعة بهتشه شهير، إسطنبول."
+    }
+  };
+
+  const ROLE_TEXT = {
+    edit:  { en: ["Media · Editing", "The Editor", "You turn raw clips into something people replay. Reels, posters and how the community looks online are yours."],
+             ar: ["الميديا · المونتاج", "المونتير", "بتحوّل اللقطات الخام لحاجة الناس بتعيدها. الريلز والبوسترات وشكل الجالية في السوشيال ميديا عليك."] },
+    shoot: { en: ["Media · Shooting", "The Lens", "You see the moment before it happens. Photos and video at every event and trip are yours."],
+             ar: ["الميديا · التصوير", "العدسة", "بتشوف اللحظة قبل ما تحصل. التصوير والفيديو في كل فعالية ورحلة عليك."] },
+    org:   { en: ["Organizers", "The Organizer", "You see the plan behind the party. Venues, timelines, who does what, and the plan B."],
+             ar: ["المنظمين", "المنظّم", "بتشوف الخطة الورا الحفلة: المكان، الجدول، منو بعمل شنو، والخطة البديلة."] },
+    fin:   { en: ["Finance & Sponsors", "The Treasurer", "You know where every lira goes and who might pay for the next one. Budgets, tickets and sponsor deals."],
+             ar: ["المالية والرعاة", "أمين المال", "عارف كل ليرة ماشة وين، ومنو ممكن يدفع للجاية. الميزانية والتذاكر وعروض الرعاة."] },
+    flag:  { en: ["Flags", "The Flag", "You're the first face new students meet. Campus tours, welcomes and every \"where is…?\" question."],
+             ar: ["الفلاقز", "الفلاق", "إنت أول وش بيقابله الطالب الجديد. جولات الجامعة، الاستقبال، والإجابة على كل «وين…؟»."] }
+  };
+  const ROLE_SHORT = {
+    edit: ["Edits reels, designs posters", "مونتاج ريلز وتصميم بوسترات"],
+    shoot: ["Photos & video at every event", "تصوير وفيديو في كل فعالية"],
+    org: ["Plans events, runs the day", "بخطط الفعاليات وبمشّي اليوم"],
+    fin: ["Budgets, tickets, sponsors", "ميزانية، تذاكر، ورعاة"],
+    flag: ["Welcomes & guides new students", "بستقبل الطلاب الجداد ويرشدهم"]
+  };
+
+  /* ---------------- questions ----------------
+     w = weights added to each team; skill = hidden skill points (org / fin). */
+  const Q = [
+    { id: "ferry", en: "Community trip on a Bosphorus ferry. First ten minutes on board: where are you?", ar: "رحلة الجالية في عبّارة البوسفور. أول عشرة دقايق في المركب، إنت وين؟", o: [
+      { en: "Phone out, filming the bridge and everyone's faces.", ar: "طلّعت التلفون وبصوّر الكبري ووشوش الناس.", w: { shoot: 3 } },
+      { en: "Counting heads. Did everyone make it on?", ar: "بعدّ في الناس. الكل ركب ولا لا؟", w: { org: 3 } },
+      { en: "Doing the math: tickets × people. Could we have got a group price?", ar: "بحسب: التذاكر × عدد الناس. ما كان ممكن نجيب سعر قروب؟", w: { fin: 3 } },
+      { en: "Talking to the new guy standing alone and introducing him around.", ar: "بونّس الزول الجديد الواقف براه وبعرّفه على الناس.", w: { flag: 3 } },
+      { en: "Already picturing the reel: which song, which cut.", ar: "بتخيّل الريل من هسي: ياتو أغنية وياتو قطع.", w: { edit: 3 } } ] },
+    { id: "night", en: "The Sudanese cultural night is tomorrow. What worries you most?", ar: "الليلة الثقافية السودانية بكرة. شنو أكتر حاجة قالقاك؟", o: [
+      { en: "Nobody knows exactly who is doing what.", ar: "مافي زول عارف بالضبط منو بعمل شنو.", w: { org: 3 } },
+      { en: "There's no plan for photos. The best moments will be lost.", ar: "مافي خطة للتصوير، وأحلى اللحظات حتضيع.", w: { shoot: 3 } },
+      { en: "The budget sheet is still empty.", ar: "شيت الميزانية لسه فاضي.", w: { fin: 3 } },
+      { en: "The new students won't know anyone there.", ar: "الطلاب الجداد ما حيعرفوا زول هناك.", w: { flag: 3 } },
+      { en: "The poster and teaser still aren't posted.", ar: "البوستر والتيزر لسه ما نزلوا.", w: { edit: 3 } } ] },
+    { id: "sponsor", en: "The owner of a Sudanese restaurant in Aksaray says \"maybe\" to sponsoring the food. You…", ar: "صاحب مطعم سوداني في أكسراي قال «ممكن» يرعى الأكل. إنت…", o: [
+      { en: "Write him a one-page offer: what he gives, what he gets back.", ar: "بكتب ليه عرض في صفحة: هو بقدّم شنو، وبيستفيد شنو.", w: { fin: 3, org: 1 } },
+      { en: "Offer to shoot a promo video in his restaurant.", ar: "بعرض عليه نصوّر فيديو دعائي في مطعمه.", w: { shoot: 2, edit: 1 } },
+      { en: "Visit him in person, have tea, build the relationship.", ar: "بمشي أزوره، نشرب شاي، ونبني علاقة.", w: { flag: 2, fin: 1 } },
+      { en: "Give him a deadline to answer and prepare a plan B.", ar: "بحدد ليه موعد للرد وبجهّز خطة بديلة.", w: { org: 3 } },
+      { en: "Design a sponsor post with his logo so he sees how it would look.", ar: "بصمم بوست بلوقو المطعم عشان يشوف حيبقى كيف.", w: { edit: 2, fin: 1 } } ] },
+    { id: "saturday", en: "A completely free Saturday. Which of these sounds most satisfying?", ar: "سبت فاضي تماماً. ياتو واحدة فيهن بتريّحك أكتر؟", o: [
+      { en: "Four hours in CapCut until every cut lands on the beat.", ar: "أربعة ساعات في كاب كات لحدي ما كل قطع يركب على الإيقاع.", w: { edit: 3 } },
+      { en: "Walking around Istanbul with a camera at golden hour.", ar: "لفّة في إسطنبول بالكاميرا وقت الغروب.", w: { shoot: 3 } },
+      { en: "Planning next month on paper, with a checklist.", ar: "أخطط للشهر الجاي على ورقة، بقائمة مهام.", w: { org: 3 } },
+      { en: "Sorting out your money in a clean spreadsheet.", ar: "أرتّب قروشي في شيت مرتب.", w: { fin: 3 } },
+      { en: "Showing a newly arrived friend around campus and Eminönü.", ar: "أفرّج صاحب لسه واصل على الجامعة وأمينونو.", w: { flag: 3 } } ] },
+    { id: "raw", en: "A friend sends you a 2-minute raw video from the event. Your first reaction?", ar: "صاحبك رسّل ليك فيديو خام دقيقتين من الفعالية. أول رد فعل؟", o: [
+      { en: "Cut it to 20 seconds with music and captions.", ar: "بقصّه لعشرين ثانية مع موسيقى وكتابة.", w: { edit: 3 } },
+      { en: "The angle is wrong. You'd have filmed it differently.", ar: "الزاوية غلط، كان صوّرته بطريقة تانية.", w: { shoot: 3 } },
+      { en: "Who was supposed to film this? Next time we need a shot list.", ar: "منو كان المفروض يصوّر؟ المرة الجاية لازم قائمة لقطات.", w: { org: 3 } },
+      { en: "Post it in the group so everyone sees it.", ar: "بنزّله في القروب عشان الكل يشوفه.", w: { flag: 3 } },
+      { en: "Could this become a sponsor's ad if we cut it right?", ar: "ممكن يبقى إعلان لراعي لو اتعمل صاح؟", w: { fin: 2, edit: 1 } } ] },
+    { id: "project", en: "BAU group project. Without trying, you always end up as…", ar: "مشروع قروب في الجامعة. بدون ما تقصد، دايماً بتلقى نفسك…", o: [
+      { en: "The one who sets the timeline and chases deadlines.", ar: "الزول البعمل الجدول ويطارد المواعيد.", w: { org: 3 } },
+      { en: "The one who makes the slides look good.", ar: "الزول البخلّي السلايدات شكلها حلو.", w: { edit: 3 } },
+      { en: "The one who handles the numbers and data.", ar: "الزول الماسك الأرقام والبيانات.", w: { fin: 3 } },
+      { en: "The one who presents and talks to the professor.", ar: "الزول البقدّم ويتكلم مع الدكتور.", w: { flag: 3 } },
+      { en: "The one collecting the photos and visuals.", ar: "الزول البجمع الصور والمرئيات.", w: { shoot: 3 } } ] },
+    { id: "late", en: "The food is 40 minutes late and 120 guests are waiting. You…", ar: "الأكل اتأخر أربعين دقيقة و١٢٠ ضيف منتظرين. إنت…", o: [
+      { en: "Call the restaurant, decide a plan B, give each person a job.", ar: "بتصل بالمطعم، بقرر خطة بديلة، وبوزّع المهام على الناس.", w: { org: 3 }, skill: { org: 1 } },
+      { en: "Take the mic and keep the guests entertained.", ar: "بشيل المايك وبونّس الضيوف.", w: { flag: 3 } },
+      { en: "Work out whether we should ask for a partial refund.", ar: "بحسب لو المفروض نسترجع جزء من القروش.", w: { fin: 3 } },
+      { en: "Film the behind-the-scenes chaos. It'll make a great story later.", ar: "بصوّر الربكة الورا الكواليس، حتبقى قصة حلوة بعدين.", w: { shoot: 3 } },
+      { en: "Post a quick story so people on the way know what's happening.", ar: "بنزّل ستوري سريع عشان الجايين يعرفوا الحاصل.", w: { edit: 2, flag: 1 } } ] },
+    { id: "askyou", en: "What do people usually ask you for?", ar: "الناس عادةً بطلبوا منك شنو؟", o: [
+      { en: "\"Can you edit this for me?\"", ar: "«ممكن تعدّل لي الفيديو ده؟»", w: { edit: 3 } },
+      { en: "\"Take my photo, you know my angles.\"", ar: "«صوّرني، إنت عارف زواياي.»", w: { shoot: 3 } },
+      { en: "\"Can you sort this out?\"", ar: "«ممكن ترتّب الموضوع ده؟»", w: { org: 3 } },
+      { en: "\"Split the bill for us.\"", ar: "«قسّم لينا الحساب.»", w: { fin: 3 } },
+      { en: "\"Where is…? Who should I talk to?\"", ar: "«وين…؟ أكلّم منو؟»", w: { flag: 3 } } ] },
+    { id: "save", en: "Scrolling Instagram. Which post do you save?", ar: "بتسكرول في إنستغرام. ياتو بوست بتحفظه؟", o: [
+      { en: "A reel with a perfect transition.", ar: "ريل فيه ترانزيشن مظبوط.", w: { edit: 3 } },
+      { en: "A cinematic street portrait.", ar: "بورتريه شارع سينمائي.", w: { shoot: 3 } },
+      { en: "\"How we ran a 500-person event\"", ar: "«كيف نظّمنا فعالية لـ٥٠٠ زول»", w: { org: 3 } },
+      { en: "A breakdown of how a small business makes money.", ar: "تحليل لكيف مشروع صغير بيعمل قروش.", w: { fin: 3 } },
+      { en: "\"Your first week in Istanbul: a student guide\"", ar: "«أسبوعك الأول في إسطنبول: دليل الطالب»", w: { flag: 3 } } ] },
+    { id: "after", en: "After a long event with 200 people, you feel…", ar: "بعد فعالية طويلة فيها ٢٠٠ زول، بتحس…", o: [
+      { en: "Energised. You'd happily keep talking.", ar: "مليان طاقة، ممكن أواصل الونسة.", w: { flag: 3 } },
+      { en: "Happy, but you want your headphones and your laptop.", ar: "مبسوط، بس داير سماعاتي واللابتوب.", w: { edit: 3 } },
+      { en: "Tired, and already listing what to fix next time.", ar: "تعبان، وبعدّد الحاجات الداير نصلحها المرة الجاية.", w: { org: 3 } },
+      { en: "Curious what it cost, and whether it was worth it.", ar: "عايز أعرف كلّفت كم، وهل كانت تستاهل.", w: { fin: 3 } },
+      { en: "Going through the photos you took.", ar: "بقلّب في الصور الصوّرتها.", w: { shoot: 3 } } ] },
+    { id: "plan", en: "You have 3 weeks to plan the Independence Day night (1 January) for 150 people. Your first move?", ar: "عندك ٣ أسابيع تجهّز ليلة عيد الاستقلال (١ يناير) لـ١٥٠ زول. أول خطوة؟", o: [
+      { en: "Fix the date and budget, then split people into teams with leads and deadlines.", ar: "أثبّت التاريخ والميزانية، وأقسّم الناس فرق ليها مسؤولين ومواعيد.", w: { org: 2 }, skill: { org: 3 } },
+      { en: "Find out how much money we have, then decide the rest.", ar: "أعرف عندنا قروش كم، وبعدين نقرر الباقي.", w: { fin: 2 }, skill: { org: 2 } },
+      { en: "Book the venue first. The rest will follow.", ar: "أحجز المكان أول، والباقي بيمشي.", w: { org: 1 }, skill: { org: 1 } },
+      { en: "Open a group chat and ask everyone for ideas.", ar: "أفتح قروب وأسأل الكل عن أفكار.", w: { flag: 1, org: 1 }, skill: { org: 1 } },
+      { en: "Start designing the poster.", ar: "أبدأ أصمم البوستر.", w: { edit: 2 }, skill: { org: 0 } } ] },
+    { id: "dropout", en: "Two days before the event, your registration volunteer drops out. You…", ar: "قبل الفعالية بيومين، المتطوع المسؤول من التسجيل اعتذر. إنت…", o: [
+      { en: "Call the backup you wrote down for that job on day one.", ar: "بتصل بالبديل الكتبته للمهمة دي من أول يوم.", w: { org: 2 }, skill: { org: 3 } },
+      { en: "Tell the head of organizers and suggest two people who could step in.", ar: "ببلّغ رئيس المنظمين وبقترح اتنين ممكن يغطّوا.", w: { org: 1, flag: 1 }, skill: { org: 2 } },
+      { en: "Do it yourself on top of your own job.", ar: "بعملها براي فوق شغلي.", w: { org: 1 }, skill: { org: 1 } },
+      { en: "Post \"anyone free on Saturday?\" in the big group.", ar: "بكتب في القروب الكبير «في زول فاضي السبت؟»", w: { flag: 1 }, skill: { org: 0 } } ] },
+    { id: "math", bonus: true, en: "Venue costs 9,000 TL. Food is 250 TL per person. 120 people are coming. What is the lowest ticket price that covers everything?", ar: "المكان بـ٩٬٠٠٠ ليرة، والأكل ٢٥٠ ليرة للزول، وجايين ١٢٠ زول. أقل سعر تذكرة بيغطي كل التكاليف كم؟", o: [
+      { en: "300 TL", ar: "٣٠٠ ليرة", w: {} },
+      { en: "325 TL", ar: "٣٢٥ ليرة", w: { fin: 3 }, skill: { fin: 1 } },
+      { en: "350 TL", ar: "٣٥٠ ليرة", w: { fin: 1 } },
+      { en: "I'd ask someone who's good with numbers.", ar: "بسأل زول شاطر في الحساب.", w: { flag: 1 } } ], keepOrder: true },
+    { id: "skills", multi: true, en: "Which of these are true about you?", ar: "ياتو من ديل بنطبق عليك؟", o: [
+      { id: "editing-apps", en: "I edit videos (CapCut, Premiere, Final Cut)", ar: "بعمل مونتاج (كاب كات، بريمير، فاينال كت)", w: { edit: 2 } },
+      { id: "design", en: "I design (Canva, Photoshop)", ar: "بصمم (كانفا، فوتوشوب)", w: { edit: 1 } },
+      { id: "phone-video", en: "I shoot good videos on my phone", ar: "بصوّر فيديوهات حلوة بالتلفون", w: { shoot: 1 } },
+      { id: "camera", en: "I have a camera", ar: "عندي كاميرا", w: { shoot: 2 } },
+      { id: "sheets", en: "I'm good with Excel / Google Sheets", ar: "شاطر في إكسل / قوقل شيتس", w: { fin: 2 } },
+      { id: "turkish", en: "I speak Turkish", ar: "بتكلم تركي", w: { flag: 2 } },
+      { id: "english", en: "I speak English well", ar: "بتكلم إنجليزي كويس", w: { flag: 1 } },
+      { id: "speaking", en: "I'm comfortable speaking to a crowd", ar: "مرتاح في الكلام قدّام الناس", w: { flag: 1 } },
+      { id: "events", en: "I've organized events before", ar: "نظّمت فعاليات قبل كده", w: { org: 2 } } ] },
+    { id: "pick", about: true, en: "Two quick ones.", ar: "سؤالين سريعين.", sub: [
+      { id: "choice", en: "If you could choose, which team would you join?", ar: "لو الخيار ليك، حتنضم لياتو فريق؟",
+        o: ["edit", "shoot", "org", "fin", "flag", "unsure"] },
+      { id: "hours", en: "How much time can you give per week?", ar: "بتقدر تدّي كم ساعة في الأسبوع؟",
+        o: [{ id: "1-2", en: "1–2 hours", ar: "ساعة لساعتين" }, { id: "3-5", en: "3–5 hours", ar: "٣–٥ ساعات" }, { id: "6+", en: "6+ hours", ar: "أكتر من ٦ ساعات" }] }
+    ] }
+  ];
+
+  const MAJORS = ["Artificial Intelligence Engineering", "Computer Engineering", "Software Engineering", "Industrial Engineering", "Electrical & Electronics Engineering", "Mechatronics Engineering", "Biomedical Engineering", "Civil Engineering", "Energy Systems Engineering", "Architecture", "Interior Architecture", "Industrial Design", "Medicine", "Dentistry", "Pharmacy", "Nursing", "Physiotherapy & Rehabilitation", "Nutrition & Dietetics", "Psychology", "Molecular Biology & Genetics", "Business Administration", "Economics", "International Trade & Business", "Management Information Systems", "Political Science & International Relations", "Law", "New Media & Communication", "Visual Communication Design", "Cinema & Television", "Advertising", "Public Relations", "English Language Teaching", "Gastronomy & Culinary Arts"];
+
+  /* ---------------- state ---------------- */
+  const LS = "bau-sd-roles";
+  let lang = "en";
+  let state = { step: 0, answers: {}, order: {} };
+  const hot = window.claude && window.claude.hot;
+
+  const $ = (id) => document.getElementById(id);
+  const t = (k, v) => { let s = (T[lang][k] ?? T.en[k] ?? k); if (v) for (const x in v) s = s.replace("{" + x + "}", v[x]); return s; };
+  const L = (o) => o[lang] || o.en;
+  const roleName = (r) => ROLE_TEXT[r][lang][0];
+  const digits = (n) => lang === "ar" ? String(n).replace(/\d/g, (d) => "٠١٢٣٤٥٦٧٨٩"[d]) : String(n);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  function save() { try { localStorage.setItem(LS, JSON.stringify({ lang, state })); } catch (e) {} }
+  function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  function orderFor(q) {
+    if (!state.order[q.id]) state.order[q.id] = q.keepOrder || q.multi || q.sub ? q.o ? q.o.map((_, i) => i) : [] : shuffle(q.o.map((_, i) => i));
+    return state.order[q.id];
+  }
+
+  /* ---------------- screens ---------------- */
+  function show(id) {
+    ["s-intro", "s-quiz", "s-details", "s-result"].forEach((s) => { $(s).hidden = s !== id; });
+    const el = $(id); el.classList.remove("anim"); void el.offsetWidth; el.classList.add("anim");
+    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+  }
+
+  function renderRoleList() {
+    $("role-list").innerHTML = ROLES.map((r) =>
+      `<li class="role-row">${ICONS[r]}<div><b>${esc(roleName(r))}</b><small>${esc(ROLE_SHORT[r][lang === "ar" ? 1 : 0])}</small></div></li>`).join("");
+  }
+
+  function renderStep() {
+    const q = Q[state.step];
+    const total = Q.length;
+    $("p-n").textContent = digits(state.step + 1) + " / " + digits(total);
+    const left = total - state.step - 1;
+    $("p-label").textContent = left === 0 ? t("quiz.last") : t("quiz.left", { n: digits(left) });
+    $("p-fill").style.width = ((state.step) / total * 100) + "%";
+    $("back").style.visibility = state.step === 0 ? "hidden" : "visible";
+
+    let tag = q.bonus ? t("quiz.bonus") : (q.multi || q.about) ? t("quiz.about") : t("quiz.scenario") + " " + digits(state.step + 1);
+    let html = `<div class="q anim"><span class="q__tag">${esc(tag)}</span><h2 id="q-title">${esc(L(q))}</h2>`;
+
+    if (q.multi) {
+      const sel = state.answers[q.id] || [];
+      html += `<p class="q__hint">${esc(t("quiz.multi"))}</p><div class="chips" role="group" aria-labelledby="q-title">` +
+        q.o.map((o) => `<button type="button" class="chip" data-chip="${o.id}" aria-pressed="${sel.includes(o.id)}">${esc(L(o))}</button>`).join("") + "</div>";
+    } else if (q.sub) {
+      const a = state.answers[q.id] || {};
+      html += q.sub.map((s) => {
+        const opts = s.o.map((o) => typeof o === "string"
+          ? { id: o, label: o === "unsure" ? (lang === "ar" ? "لسه ما متأكد" : "Not sure yet") : roleName(o) }
+          : { id: o.id, label: L(o) });
+        return `<div class="subq"><h3 id="sq-${s.id}">${esc(L(s))}</h3><div class="chips" role="radiogroup" aria-labelledby="sq-${s.id}">` +
+          opts.map((o) => `<button type="button" class="chip" role="radio" data-sub="${s.id}" data-val="${o.id}" aria-pressed="${a[s.id] === o.id}" aria-checked="${a[s.id] === o.id}">${esc(o.label)}</button>`).join("") + "</div></div>";
+      }).join("");
+    } else {
+      const chosen = state.answers[q.id];
+      const keys = lang === "ar" ? ["أ", "ب", "ج", "د", "هـ"] : ["A", "B", "C", "D", "E"];
+      html += `<div class="opts" role="radiogroup" aria-labelledby="q-title">` +
+        orderFor(q).map((i, n) => `<button type="button" class="opt" role="radio" data-i="${i}" aria-checked="${chosen === i}"><span class="opt__k">${keys[n]}</span><span>${esc(L(q.o[i]))}</span></button>`).join("") + "</div>";
+    }
+    html += "</div>";
+    $("q-host").innerHTML = html;
+    updateNext();
+  }
+
+  function stepDone() {
+    const q = Q[state.step];
+    if (q.multi) return true;
+    if (q.sub) { const a = state.answers[q.id] || {}; return q.sub.every((s) => a[s.id]); }
+    return state.answers[q.id] != null;
+  }
+  function updateNext() {
+    const last = state.step === Q.length - 1;
+    $("next").disabled = !stepDone();
+    $("next").querySelector("span").textContent = last ? t("quiz.finish") : t("quiz.next");
+  }
+  let advanceTimer = null;
+  function go(delta) {
+    clearTimeout(advanceTimer);
+    const n = state.step + delta;
+    if (n < 0) { show("s-intro"); return; }
+    if (n >= Q.length) { show("s-details"); save(); return; }
+    state.step = n; save(); renderStep();
+  }
+
+  /* ---------------- scoring ---------------- */
+  function score() {
+    const s = { edit: 0, shoot: 0, org: 0, fin: 0, flag: 0 };
+    const skill = { org: 0, fin: 0 };
+    const add = (w) => { for (const k in w) s[k] += w[k]; };
+    Q.forEach((q) => {
+      const a = state.answers[q.id];
+      if (q.multi) (a || []).forEach((id) => add(q.o.find((o) => o.id === id).w));
+      else if (!q.sub && a != null) { const o = q.o[a]; add(o.w); if (o.skill) for (const k in o.skill) skill[k] += o.skill[k]; }
+    });
+    const total = ROLES.reduce((x, r) => x + s[r], 0) || 1;
+    const pct = {}; ROLES.forEach((r) => { pct[r] = Math.round(s[r] / total * 100); });
+    const pick = (state.answers.pick || {}).choice; // breaks ties in favour of the team they'd choose
+    const ranked = ROLES.slice().sort((a, b) => s[b] - s[a] || (b === pick) - (a === pick) || ROLES.indexOf(a) - ROLES.indexOf(b));
+    return { raw: s, pct, ranked, skill };
+  }
+
+  /* ---------------- result ---------------- */
+  let submission = null; // {key, status}
+  function renderResult() {
+    const r = score(); const top = r.ranked[0], second = r.ranked[1];
+    const d = state.details || {};
+    $("r-name").textContent = (d.name || "") + " " + (d.surname || "");
+    $("r-meta").textContent = [d.major, d.year ? (lang === "ar" ? "السنة " : "Year ") + d.year : ""].filter(Boolean).join(" · ");
+    $("r-icon").innerHTML = ICONS[top];
+    $("r-role").textContent = ROLE_TEXT[top][lang][1];
+    $("r-desc").textContent = ROLE_TEXT[top][lang][2];
+    $("r-bars").innerHTML = r.ranked.map((k, i) =>
+      `<div class="bar-row${i === 0 ? " is-top" : i === 1 ? " is-second" : ""}"><dt>${esc(roleName(k))}</dt><div class="bar-track"><div class="bar-fill" data-w="${r.pct[k]}"></div></div><dd>${digits(r.pct[k])}${lang === "ar" ? "٪" : "%"}</dd></div>`).join("");
+    requestAnimationFrame(() => requestAnimationFrame(() => document.querySelectorAll(".bar-fill").forEach((b) => { b.style.width = Math.max(4, b.dataset.w * 1.6) + "%"; })));
+    $("r-second").innerHTML = esc(t("r.second", { role: "\u0000" })).replace("\u0000", "<b>" + esc(roleName(second)) + "</b>");
+    const pick = (state.answers.pick || {}).choice;
+    if (pick && pick !== "unsure") {
+      $("r-pick").hidden = false;
+      $("r-pick").textContent = pick === top ? t("r.pickSame", { role: roleName(top) }) : t("r.pickDiff", { pick: roleName(pick), role: roleName(top) });
+    } else $("r-pick").hidden = true;
+    renderStatus();
+  }
+  function renderStatus() {
+    const st = submission ? submission.status : "busy";
+    $("r-status").dataset.state = st === "preview" ? "" : st;
+    $("r-status").textContent = t("s." + st);
+  }
+
+  function payload() {
+    const r = score(); const d = state.details; const a = state.answers;
+    const choice = (a.pick || {}).choice;
+    const answers = Q.filter((q) => !q.multi && !q.sub).map((q) => q.id + ": " + (a[q.id] != null ? q.o[a[q.id]].en : "")).join(" | ");
+    return {
+      "Timestamp": new Date().toISOString(),
+      "Name": d.name, "Surname": d.surname, "Gender": d.gender, "Student No": d.sn, "Major": d.major, "Year": d.year,
+      "Primary role": ROLE_TEXT[r.ranked[0]].en[0], "Second role": ROLE_TEXT[r.ranked[1]].en[0],
+      "Editing %": r.pct.edit, "Shooting %": r.pct.shoot, "Organizing %": r.pct.org, "Finance %": r.pct.fin, "Flags %": r.pct.flag,
+      "Organizer skill (0-7)": r.skill.org, "Finance check": r.skill.fin ? "Correct" : "Wrong",
+      "Skills": (a.skills || []).map((id) => Q.find((q) => q.id === "skills").o.find((o) => o.id === id).en).join(", "),
+      "Would pick": choice === "unsure" ? "Not sure" : choice ? ROLE_TEXT[choice].en[0] : "",
+      "Hours/week": (a.pick || {}).hours || "",
+      "Language": lang, "Answers": answers
+    };
+  }
+
+  async function submit() {
+    const key = state.details.sn + "|" + JSON.stringify(state.answers);
+    if (submission && submission.key === key && submission.status === "ok") { renderStatus(); return; }
+    const gs = window.google && window.google.script && window.google.script.run;
+    if (gs) {
+      submission = { key, status: "busy" }; renderStatus();
+      gs.withSuccessHandler((r) => { submission.status = r && r.ok ? "ok" : "err"; renderStatus(); })
+        .withFailureHandler(() => { submission.status = "err"; renderStatus(); })
+        .submit(payload());
+      return;
+    }
+    if (!SHEET_URL) { submission = { key, status: "preview" }; renderStatus(); return; }
+    submission = { key, status: "busy" }; renderStatus();
+    const body = JSON.stringify(payload());
+    try {
+      const res = await fetch(SHEET_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      submission.status = "ok";
+    } catch (e) {
+      try { await fetch(SHEET_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body }); submission.status = "ok"; }
+      catch (e2) { submission.status = "err"; }
+    }
+    renderStatus();
+  }
+
+  /* ---------------- language ---------------- */
+  function setLang(l) {
+    lang = l === "ar" ? "ar" : "en";
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    document.querySelectorAll("[data-t]").forEach((el) => { el.textContent = t(el.dataset.t); });
+    document.querySelectorAll("[data-lang]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+    document.title = lang === "ar" ? "يا زول: إنت ياتو فيهم؟" : "Ya Zol: Which One Are You?";
+    renderRoleList();
+    if (!$("s-quiz").hidden) renderStep();
+    if (!$("s-result").hidden) renderResult();
+    save();
+  }
+
+  /* ---------------- events ---------------- */
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.lang) { setLang(b.dataset.lang); return; }
+    if (b.id === "start") { show("s-quiz"); renderStep(); return; }
+    if (b.id === "next") { go(1); return; }
+    if (b.id === "back") { go(-1); return; }
+    if (b.id === "back2") { show("s-quiz"); state.step = Q.length - 1; renderStep(); return; }
+    if (b.id === "again") { state = { step: 0, answers: {}, order: {}, details: state.details }; submission = null; save(); show("s-quiz"); renderStep(); return; }
+    if (b.dataset.gender) {
+      document.querySelectorAll("[data-gender]").forEach((c) => { const on = c === b; c.setAttribute("aria-pressed", String(on)); c.setAttribute("aria-checked", String(on)); });
+      $("e-gender").textContent = ""; return;
+    }
+    const q = Q[state.step];
+    if (b.classList.contains("opt")) {
+      state.answers[q.id] = Number(b.dataset.i); save();
+      document.querySelectorAll(".opt").forEach((o) => o.setAttribute("aria-checked", String(o === b)));
+      updateNext();
+      clearTimeout(advanceTimer);
+      advanceTimer = setTimeout(() => go(1), 380);
+      return;
+    }
+    if (b.dataset.chip) {
+      const arr = state.answers[q.id] || (state.answers[q.id] = []);
+      const i = arr.indexOf(b.dataset.chip); if (i > -1) arr.splice(i, 1); else arr.push(b.dataset.chip);
+      b.setAttribute("aria-pressed", String(i < 0)); save(); return;
+    }
+    if (b.dataset.sub) {
+      const a = state.answers[q.id] || (state.answers[q.id] = {});
+      a[b.dataset.sub] = b.dataset.val; save();
+      document.querySelectorAll(`[data-sub="${b.dataset.sub}"]`).forEach((c) => { const on = c === b; c.setAttribute("aria-pressed", String(on)); c.setAttribute("aria-checked", String(on)); });
+      updateNext(); return;
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if ($("s-quiz").hidden || e.target.closest("input,select")) return;
+    const q = Q[state.step];
+    const n = parseInt(e.key, 10);
+    if (!q.multi && !q.sub && n >= 1 && n <= q.o.length) { const btn = document.querySelectorAll(".opt")[n - 1]; if (btn) btn.click(); }
+    if (e.key === "Enter" && !$("next").disabled && !e.target.closest(".opt,.chip")) go(1);
+  });
+
+  $("details").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const gBtn = document.querySelector('[data-gender][aria-pressed="true"]');
+    const f = { gender: gBtn ? gBtn.dataset.gender : "", name: $("f-name").value.trim(), surname: $("f-surname").value.trim(), sn: $("f-sn").value.replace(/\s/g, ""), year: $("f-year").value, major: $("f-major").value.trim() };
+    // convert Arabic-Indic digits in the student number
+    f.sn = f.sn.replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
+    let ok = true;
+    const set = (id, msg) => { $("e-" + id).textContent = msg || ""; const inp = $("f-" + id); if (inp) inp.setAttribute("aria-invalid", msg ? "true" : "false"); if (msg && ok) { inp && inp.focus(); ok = false; } };
+    set("name", f.name ? "" : t("err.req"));
+    set("surname", f.surname ? "" : t("err.req"));
+    set("sn", !f.sn ? t("err.req") : /^\d{5,12}$/.test(f.sn) ? "" : t("err.sn"));
+    set("year", f.year ? "" : t("err.req"));
+    set("major", f.major ? "" : t("err.req"));
+    $("e-gender").textContent = f.gender ? "" : t("err.req");
+    $("e-consent").textContent = $("f-consent").checked ? "" : t("err.consent");
+    if (!$("f-consent").checked && ok) { ok = false; $("f-consent").focus(); }
+    if (!f.gender && ok) { ok = false; $("g-male").focus(); }
+    if (!ok) return;
+    state.details = f; save();
+    show("s-result"); renderResult(); submit();
+  });
+
+  /* ---------------- boot ---------------- */
+  function start(data) {
+    $("majors").innerHTML = MAJORS.map((m) => `<option value="${esc(m)}"></option>`).join("");
+    let saved = null; try { saved = JSON.parse(localStorage.getItem(LS) || "null"); } catch (e) {}
+    if (data && data.state) saved = data;
+    if (saved && saved.state) { state = Object.assign(state, saved.state); }
+    const navLang = (navigator.language || "en").slice(0, 2);
+    setLang((saved && saved.lang) || (navLang === "ar" ? "ar" : "en"));
+    if (state.details) { $("f-name").value = state.details.name || ""; $("f-surname").value = state.details.surname || ""; $("f-sn").value = state.details.sn || ""; $("f-year").value = state.details.year || ""; $("f-major").value = state.details.major || "";
+      const g = document.querySelector(`[data-gender="${state.details.gender}"]`); if (g) { g.setAttribute("aria-pressed", "true"); g.setAttribute("aria-checked", "true"); } }
+  }
+  if (hot && hot.snapshot) hot.snapshot(() => ({ lang, state }));
+  if (hot && hot.ready) hot.ready(start); else start(hot && hot.data);
+})();
+</script>
+<!--BODY-END-->
+</body>
+</html>
